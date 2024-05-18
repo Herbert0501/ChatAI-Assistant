@@ -1,0 +1,52 @@
+{
+  "succeeded": true,
+  "resp_data": {
+    "topics": [{
+      "topic_id": 8855218881551812,
+      "group": {
+        "group_id": 15555422882442,
+        "name": "ChatAI 问答小助手",
+        "type": "pay",
+        "background_url": "builtin:\/\/8"
+      },
+      "type": "q&a",
+      "question": {
+        "owner": {
+          "user_id": 812252412112882,
+          "name": "Harry Pott*",
+          "avatar_url": "https:\/\/file.zsxq.com\/5f9\/6b\/f96b985b89737a6fb445c5cbd55c8d014029800f71a81965a130a2193033ac95_min.jpg",
+          "location": "广西"
+        },
+        "questionee": {
+          "user_id": 818842252825882,
+          "name": "K·Herbert",
+          "avatar_url": "https:\/\/images.zsxq.com\/FkIIoIbOtDJagKIZuYfh3hcXUk98?e=1719763199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:QtC44i9HRIMnyUpyLQ0hfSkx9mM=",
+          "location": "广西"
+        },
+        "text": "如何一夜学完Java知识",
+        "expired": false,
+        "anonymous": false,
+        "owner_detail": {
+          "questions_count": 4,
+          "join_time": "2024-05-18T14:54:51.621+0800",
+          "status": "joined"
+        },
+        "owner_location": "广西"
+      },
+      "answered": false,
+      "likes_count": 0,
+      "rewards_count": 0,
+      "comments_count": 0,
+      "reading_count": 1,
+      "readers_count": 2,
+      "digested": false,
+      "sticky": false,
+      "create_time": "2024-05-18T21:10:20.839+0800",
+      "user_specific": {
+        "liked": false,
+        "liked_emojis": [],
+        "subscribed": false
+      }
+    }]
+  }
+}
