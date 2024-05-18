@@ -1,4 +1,4 @@
-package top.kangyaocoding.chatai.test;
+package top.kangyaocoding.chatai.api.test;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
