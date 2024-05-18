@@ -78,6 +78,10 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dashscope-sdk-java</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>top.kangyaocoding.ai</groupId>

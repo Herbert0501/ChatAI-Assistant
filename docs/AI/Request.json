@@ -1,0 +1,15 @@
+{
+	"model": "qwen-turbo",
+	"input": {
+		"messages": [{
+			"role": "system",
+			"content": "You are a helpful assistant."
+		}, {
+			"role": "user",
+			"content": "%s"
+		}]
+	},
+	"parameters": {
+		"result_format": "message"
+	}
+}

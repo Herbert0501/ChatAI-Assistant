@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import top.kangyaocoding.chatai.domain.zsxq.model.aggregates.UnAnsweredQuestionsAggregates;
 import top.kangyaocoding.chatai.domain.zsxq.IZsxqApi;
+import top.kangyaocoding.chatai.domain.zsxq.model.aggregates.UnAnsweredQuestionsAggregates;
 import top.kangyaocoding.chatai.domain.zsxq.model.vo.Topics;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 

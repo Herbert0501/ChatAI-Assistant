@@ -1,5 +1,7 @@
 package top.kangyaocoding.chatai.api.test;
 
+import com.alibaba.dashscope.exception.InputRequiredException;
+import com.alibaba.dashscope.exception.NoApiKeyException;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -11,7 +13,13 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author K·Herbert
@@ -20,6 +28,8 @@ import java.io.IOException;
  */
 
 public class ApiTest {
+    private static final String USER_AGENT = "Java-HttpURLConnection/1.0";
+
     @Test
     public void query_unanswered_questions() throws IOException {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -60,5 +70,81 @@ public class ApiTest {
         } else {
             System.out.println(response.getStatusLine().getStatusCode());
         }
+    }
+
+    @Test
+    public void DashScope_test() throws NoApiKeyException, InputRequiredException, IOException {
+        // 创建HttpClient
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        // 设置POST请求URL
+        HttpPost httpPost = new HttpPost("https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation");
+
+        // 获取API Key
+        String apiKey = System.getenv("DASHSCOPE_KEY_ID");
+        if (apiKey == null || apiKey.isEmpty()) {
+            throw new IllegalArgumentException("API key is missing or empty");
+        }
+
+        // 设置请求头
+        httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+        httpPost.addHeader("Authorization", "Bearer " + apiKey);
+
+        // 使用String.format生成JSON请求体
+        String userInput = "如何制作番茄炒蛋";
+        String paramJson = String.format(
+                "{\"model\": \"qwen-turbo\", \"input\": {\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"%s\"}]}, \"parameters\": {\"result_format\": \"message\"}}",
+                userInput
+        );
+
+        // 将JSON请求体设置为StringEntity
+        StringEntity stringEntity = new StringEntity(paramJson, ContentType.APPLICATION_JSON);
+        httpPost.setEntity(stringEntity);
+
+        // 执行请求并获取响应
+        CloseableHttpResponse response = httpClient.execute(httpPost);
+
+        // 处理响应
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            String responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
+            System.out.println("成功：" + responseString);
+        } else {
+            String errorString = EntityUtils.toString(response.getEntity(), "UTF-8");
+            System.out.println("失败：" + response.getStatusLine().getStatusCode() + " " + response.getStatusLine().getReasonPhrase());
+            System.out.println("响应内容：" + errorString);
+        }
+    }
+
+    @Test
+    public void DashScope_test_2() throws NoApiKeyException, InputRequiredException, IOException {
+        String urlStr = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation";
+        String apiKey = System.getenv("DASHSCOPE_KEY_ID");
+
+        URL url = new URL(urlStr);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+        connection.setDoOutput(true);
+
+        String UserInput = "如何制作番茄炒蛋";
+        String jsonInputString = String.format("{\"model\": \"qwen-turbo\", \"input\": {\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"%s\"}]}, \"parameters\": {\"result_format\": \"message\"}}", UserInput);
+
+        try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+            wr.write(jsonInputString.getBytes(StandardCharsets.UTF_8));
+            wr.flush();
+        }
+
+        StringBuilder response = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(connection.getInputStream()))) {
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+        }
+
+        System.out.println(response);
+        connection.disconnect();
     }
 }
