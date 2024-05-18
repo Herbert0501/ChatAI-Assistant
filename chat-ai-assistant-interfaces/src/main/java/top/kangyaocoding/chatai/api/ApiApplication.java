@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Date 2024-05-17 17:10
  */
 @SpringBootApplication
-@ComponentScan("top.kangyaocoding.chatai.domain.zsxq")
+@ComponentScan("top.kangyaocoding.chatai.domain")
 public class ApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);

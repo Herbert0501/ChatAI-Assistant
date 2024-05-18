@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import top.kangyaocoding.chatai.domain.ai.IOpenAi;
 import top.kangyaocoding.chatai.domain.zsxq.IZsxqApi;
 import top.kangyaocoding.chatai.domain.zsxq.model.aggregates.UnAnsweredQuestionsAggregates;
 import top.kangyaocoding.chatai.domain.zsxq.model.vo.Topics;
@@ -32,6 +33,9 @@ public class SpringBootRunTest {
     @Autowired
     private IZsxqApi zsxqApi;
 
+    @Autowired
+    private IOpenAi  openAi;
+
     @Test
     public void test_getUnAnsweredQuestionsTopicId() throws IOException {
         UnAnsweredQuestionsAggregates unAnsweredQuestionsTopicId = zsxqApi.getUnAnsweredQuestionsTopicId(groupId, cookie);
@@ -54,5 +58,11 @@ public class SpringBootRunTest {
 
             zsxqApi.answerQuestion(groupId, cookie,topicId, "我不会", false);
         }
+    }
+
+    @Test
+    public void chatAi_test() throws IOException {
+        String dashScopeAnswer = openAi.getDashScopeAnswer("你是谁？");
+        logger.info("dashScopeAnswer: {}", dashScopeAnswer);
     }
 }
