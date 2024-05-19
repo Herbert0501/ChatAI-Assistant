@@ -94,7 +94,7 @@ public class ApiTest {
         httpPost.addHeader("Authorization", "Bearer " + apiKey);
 
         // 使用String.format生成JSON请求体
-        String userInput = "如何制作西瓜汁";
+        String userInput = "怎么设置这个为1分钟一次@Scheduled(cron = 0 0 0 * * ?)";
         String paramJson = String.format(
                 "{\"model\": \"qwen-turbo\", \"input\": {\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"%s\"}]}, \"parameters\": {\"result_format\": \"message\"}}",
                 userInput
@@ -114,7 +114,7 @@ public class ApiTest {
             StringBuilder stringBuilder = new StringBuilder();
             List<Choices> choices = aiAnswer.getOutput().getChoices();
             for (Choices choice : choices) {
-                System.out.println(choice.getMessage());
+                System.out.println(choice.getMessage().getContent());
             }
         } else {
             String errorString = EntityUtils.toString(response.getEntity(), "UTF-8");
