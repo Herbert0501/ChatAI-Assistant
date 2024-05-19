@@ -61,7 +61,11 @@ public class ChatAiSchedule {
         // 调用AI接口
         String answer = openAi.getDashScopeAnswer(question + "+字数限制大于10小于550");
         // 回答问题
-        zsxqApi.answerQuestion(groupId, cookie, topics.get(0).getTopic_id(), answer, false);
+        boolean answerQuestion = zsxqApi.answerQuestion(groupId, cookie, topics.get(0).getTopic_id(), answer, false);
+        if (!answerQuestion) {
+            logger.info("回答问题失败");
+            return;
+        }
         // 打印日志
         logger.info("回答问题: " + question + " 答案: " + answer);
     }

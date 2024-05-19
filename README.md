@@ -2,6 +2,7 @@
 [中文简体](README.md) | [English](README.en.md)
 ### 介绍
 AI问答小助手-对接知识星球问答区
+模型是通义千问qwen-turbo
 
 ### 软件架构
 

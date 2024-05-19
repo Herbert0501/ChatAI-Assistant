@@ -2,7 +2,7 @@
 [中文简体](README.md) | [English](README.en.md)
 ### Introduction
 AI Q&A Assistant - Connecting to Knowledge Planet Q&A Section
-
+The model is Tongyi Qianwen qwen-turbo
 ### Software Architecture
 
 - **Spring Boot**
