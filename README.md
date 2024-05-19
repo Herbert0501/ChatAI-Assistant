@@ -1,5 +1,5 @@
-# ChatAI-Assistant
-
+## ChatAI-Assistant
+[中文简体](README.md)
 ### 介绍
 AI问答小助手-对接知识星球问答区
 
