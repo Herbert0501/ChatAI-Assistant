@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import top.kangyaocoding.chatai.domain.ai.IOpenAi;
 import top.kangyaocoding.chatai.domain.ai.model.aggregates.AIAnswer;
@@ -26,7 +27,10 @@ import java.util.List;
  */
 @Service
 public class OpenAi implements IOpenAi {
+    @Value("${dashscope.key}")
+    String apiKey; // 从配置文件获取 key 千问模型 https://dashscope.aliyun.com/
     private final Logger log = LoggerFactory.getLogger(OpenAi.class);
+
     @Override
     public String getDashScopeAnswer(String question) throws IOException {
         // 创建HttpClient
@@ -34,8 +38,8 @@ public class OpenAi implements IOpenAi {
         // 设置POST请求URL
         HttpPost httpPost = new HttpPost("https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation");
 
-        // 获取API Key
-        String apiKey = System.getenv("DASHSCOPE_KEY_ID");
+        // 从环境变量获取API Key
+        // String apiKey = System.getenv("DASHSCOPE_KEY_ID");
         if (apiKey == null || apiKey.isEmpty()) {
             throw new IllegalArgumentException("API key is missing or empty");
         }
